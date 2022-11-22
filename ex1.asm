@@ -10,7 +10,7 @@ _start:
 	sar %al
 	jb _NOT_DIVIDED_HW1
 	movb $0x1, (Bool)	
-	jmp _EXIT_HW1	
+	jmp _EXIT_HW1
 
 _NOT_DIVIDED_HW1:
 	movb $0x0, (Bool)	

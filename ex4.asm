@@ -13,10 +13,11 @@ _start:
 	movq (%rax), %rbx	# %rbx = current_val
 	movq (new_node), %rcx	# %rcv = new_node_val
 
+
 CHECK_CURRENT_NODE_HW1:
 	cmp %rcx, %rbx		# check if current node_val == new_node_val
 	je END_HW1
-	jg GO_LEFT_HW1
+	ja GO_LEFT_HW1
 	jmp GO_RIGHT_HW1
 	# will never reach here
 	jmp END_HW1
@@ -28,7 +29,7 @@ GO_LEFT_HW1:
 	movq (%rax), %rax	# %rax = &left_son
 	test %rax, %rax		# check if we reached the end of the tree
 	je INSERT_HW1	
-	movq (%rax), %rbx	# %rax = left_son_val		
+	movq (%rax), %rbx	# %rbx = left_son_val		
 	jmp CHECK_CURRENT_NODE_HW1
 
 GO_RIGHT_HW1:
@@ -38,11 +39,11 @@ GO_RIGHT_HW1:
 	movq (%rax), %rax	# %rax = $right_son
 	test %rax, %rax		# check if we reached the end of the tree
 	je INSERT_HW1		
-	movq (%rax), %rbx	# %rax = right_son_val
+	movq (%rax), %rbx	# %rbx = right_son_val
 	jmp CHECK_CURRENT_NODE_HW1
 	
 INSERT_HW1:
-	cmp %r15, %r15
+	test %r15, %r15
 	je HE_IS_MY_RIGHT_SON_HW1
 	jmp HE_IS_MY_LEFT_SON_HW1
 

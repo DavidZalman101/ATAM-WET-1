@@ -1,6 +1,21 @@
 .global _start
 
 .section .text
+/*
+	*	%rax - points to the current running node.
+	*	%rbx - hold the value of the current running pointer.
+	*	%rcx - holds the value of the new node.
+	*	%rdx - hold the pointer to the father of the current running node (if exists)
+	*	%r15 - flag - current_node = left_son : righ_son ? 1 : 0
+	*	
+	*
+	*
+	*
+	*
+	*
+	*
+*/
+
 _start:
 
 # initialize values
@@ -13,13 +28,10 @@ _start:
 	movq (%rax), %rbx	# %rbx = current_val
 	movq (new_node), %rcx	# %rcv = new_node_val
 
-
 CHECK_CURRENT_NODE_HW1:
 	cmp %rcx, %rbx		# check if current node_val == new_node_val
-	je END_HW1
-	ja GO_LEFT_HW1
-	jmp GO_RIGHT_HW1
-	# will never reach here
+	jg GO_LEFT_HW1
+	jl GO_RIGHT_HW1
 	jmp END_HW1
 
 GO_LEFT_HW1:
@@ -29,7 +41,7 @@ GO_LEFT_HW1:
 	movq (%rax), %rax	# %rax = &left_son
 	test %rax, %rax		# check if we reached the end of the tree
 	je INSERT_HW1	
-	movq (%rax), %rbx	# %rbx = left_son_val		
+	movq (%rax), %rbx	# %rax = left_son_val		
 	jmp CHECK_CURRENT_NODE_HW1
 
 GO_RIGHT_HW1:
@@ -39,7 +51,7 @@ GO_RIGHT_HW1:
 	movq (%rax), %rax	# %rax = $right_son
 	test %rax, %rax		# check if we reached the end of the tree
 	je INSERT_HW1		
-	movq (%rax), %rbx	# %rbx = right_son_val
+	movq (%rax), %rbx	# %rax = right_son_val
 	jmp CHECK_CURRENT_NODE_HW1
 	
 INSERT_HW1:
